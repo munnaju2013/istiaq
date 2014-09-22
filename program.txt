@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace Dictionary1
+{
+    public partial class DictionaryUI : Form
+    {
+        Dictionary<string, string> citizenInformation = new Dictionary<string, string>(); 
+
+        public DictionaryUI()
+        {
+            InitializeComponent();
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            citizenInformation.Add(idTextBox.Text, detailsTextBox.Text);
+            MessageBox.Show(@"Information has been saved");
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            bool hasThisId = citizenInformation.ContainsKey(idForSearchingTextBox.Text);
+            if (hasThisId)
+            {
+                string detailsInfo = citizenInformation[idForSearchingTextBox.Text];
+                MessageBox.Show(detailsInfo);
+            }
+            else
+            {
+                MessageBox.Show(@"No data is found");
+            }
+        }
+
+        private void showAllButton_Click(object sender, EventArgs e)
+        {
+            string allInfo = "";
+            foreach(KeyValuePair<string, string> pair in citizenInformation)
+            {
+                allInfo += pair.Key + " " + pair.Value + "\n";
+            }
+            MessageBox.Show(allInfo);
+        }
+
+             
+    }
+}
